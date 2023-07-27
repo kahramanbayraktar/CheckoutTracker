@@ -1,16 +1,15 @@
-﻿using Customer.Domain.Models;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 
 namespace Customer.Utils.Utils
 {
     public static class CustomerCsvParser
     {
-        public static List<CustomerViewModel> Parse(string[] content)
+        public static List<Domain.Entities.Customer> Parse(string[] content)
         {
             var customers = content
              .Select(line => line.Split('\t'))
-             .Select(x => new CustomerViewModel
+             .Select(x => new Domain.Entities.Customer
              {
                  FirstName = x[0],
                  LastName = x[1]
@@ -21,7 +20,7 @@ namespace Customer.Utils.Utils
 
         public static string ComposeLine(string content)
         {
-            var data = JsonSerializer.Deserialize<CustomerViewModel>(content)!;
+            var data = JsonSerializer.Deserialize<Domain.Entities.Customer>(content)!;
 
             // TODO: compose dynamically
             StringBuilder builder = new();             
