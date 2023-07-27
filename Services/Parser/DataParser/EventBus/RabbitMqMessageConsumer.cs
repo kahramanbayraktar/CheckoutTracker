@@ -13,7 +13,10 @@ namespace CheckoutDataParser.EventBus
             var factory = new ConnectionFactory { Uri = new Uri(config["EventBus:Uri"]!) };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(config["EventBus:CheckoutDataQueue"], exclusive: false);
+            _channel.QueueDeclare(config["EventBus:CheckoutDataQueue"], durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
         }
 
         public IModel Channel => _channel;

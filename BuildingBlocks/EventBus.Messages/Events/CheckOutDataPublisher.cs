@@ -20,7 +20,10 @@ namespace EventBus.Messages.Events
             // RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=405, text=’RESOURCE_LOCKED – cannot obtain exclusive access to locked queue in ‘orders’ vhost ‘/’.
             // https://github.com/pardahlman/RawRabbit/issues/192
             #endregion
-            channel.QueueDeclare(QueueName, exclusive: false);
+            channel.QueueDeclare(QueueName, durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
 
             var json = JsonSerializer.Serialize(message);
             var body = Encoding.UTF8.GetBytes(json);

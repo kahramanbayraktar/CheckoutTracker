@@ -1,4 +1,6 @@
 using Checkout.API.EventBus;
+using MediatR;
+using System.Reflection;
 
 namespace Checkout.API
 {
@@ -9,6 +11,8 @@ namespace Checkout.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
             builder.Services.AddControllers();
 

@@ -18,12 +18,18 @@ namespace Checkout.API.EventBus
 
             _queue = config["EventBus:CheckoutDataQueue"]!;
 
+            // TODO: a workaround
+            //_channel.QueueDelete(_queue);
+
             #region
             // exclusive is set to false, otherwise it causes the below error:
             // RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=405, text=’RESOURCE_LOCKED – cannot obtain exclusive access to locked queue in ‘orders’ vhost ‘/’.
             // https://github.com/pardahlman/RawRabbit/issues/192
             #endregion
-            _channel.QueueDeclare(_queue, exclusive: false);
+            _channel.QueueDeclare(_queue, durable: true,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
         }
 
         public void Publish<T>(T message)

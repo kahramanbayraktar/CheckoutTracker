@@ -25,7 +25,7 @@ namespace Customer.Web.EventBus
 
             _queue = config["EventBus:CustomerDataQueue"]!;
 
-            _channel.QueueDeclare(queue: _queue, exclusive: false);
+            _channel.QueueDeclare(queue: _queue, exclusive: false, autoDelete: false);
 
             _consumer = new(_channel);            
         }
@@ -33,8 +33,6 @@ namespace Customer.Web.EventBus
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             stoppingToken.ThrowIfCancellationRequested();
-
-            //var consumer = new AsyncEventingBasicConsumer(_channel);
 
             _consumer.Received += async (model, eventArgs) =>
             {
@@ -46,14 +44,20 @@ namespace Customer.Web.EventBus
 
                     CsvFileUtils.Append(message, path);
 
+                    // Acknowledge that the message has been successfully processed and can be safely removed from the queue.
                     _channel.BasicAck(eventArgs.DeliveryTag, false);
                 }
                 catch (Exception exc)
                 {
+                    // Reject the delivered message and ask RabbitMQ to requeue them or discard them based on the requeue parameter.
                     _channel.BasicNack(eventArgs.DeliveryTag, false, false);
                 }
             };
 
+            // Register the consumer for the queue.
+            // If autoAck is set to true, message is considered as acknowledged and removed from the queue
+            // as soon as it is delivered to the consumer.
+            // The consumer does not need to explicitly call BasicAck to acknowledge the messages.
             _channel.BasicConsume(queue: _queue, autoAck: false, consumer: _consumer);
 
             await Task.CompletedTask;
