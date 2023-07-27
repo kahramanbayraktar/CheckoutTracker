@@ -5,17 +5,16 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["CheckoutDataParser/CheckoutDataParser.csproj", "CheckoutDataParser/"]
-COPY ["EventBus.Messages/EventBus.Messages.csproj", "EventBus.Messages/"]
-RUN dotnet restore "CheckoutDataParser/CheckoutDataParser.csproj"
+COPY ["Services/Parser/DataParser/DataParser.csproj", "Services/Parser/DataParser/"]
+RUN dotnet restore "Services/Parser/DataParser/DataParser.csproj"
 COPY . .
-WORKDIR "/src/CheckoutDataParser"
-RUN dotnet build "CheckoutDataParser.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Parser/DataParser"
+RUN dotnet build "DataParser.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CheckoutDataParser.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "DataParser.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CheckoutDataParser.dll"]
+ENTRYPOINT ["dotnet", "DataParser.dll"]

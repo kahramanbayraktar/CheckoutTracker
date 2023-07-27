@@ -7,18 +7,18 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["CustomerService/CustomerService.Web/CustomerService.Web.csproj", "CustomerService/CustomerService.Web/"]
-COPY ["CustomerService/CustomerService.Domain/CustomerService.Domain.csproj", "CustomerService/CustomerService.Domain/"]
-COPY ["CustomerService/CustomerService.Utils/CustomerService.Utils.csproj", "CustomerService/CustomerService.Utils/"]
-RUN dotnet restore "CustomerService/CustomerService.Web/CustomerService.Web.csproj"
+COPY ["Services/Customer/Customer.Web/Customer.Web.csproj", "Services/Customer/Customer.Web/"]
+COPY ["Services/Customer/Customer.Domain/Customer.Domain.csproj", "Services/Customer/Customer.Domain/"]
+COPY ["Services/Customer/Customer.Utils/Customer.Utils.csproj", "Services/Customer/Customer.Utils/"]
+RUN dotnet restore "Services/Customer/Customer.Web/Customer.Web.csproj"
 COPY . .
-WORKDIR "/src/CustomerService/CustomerService.Web"
-RUN dotnet build "CustomerService.Web.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Customer/Customer.Web"
+RUN dotnet build "Customer.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CustomerService.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Customer.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CustomerService.Web.dll"]
+ENTRYPOINT ["dotnet", "Customer.Web.dll"]
