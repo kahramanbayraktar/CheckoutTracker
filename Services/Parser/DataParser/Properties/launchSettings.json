@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CheckoutDataParser": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
