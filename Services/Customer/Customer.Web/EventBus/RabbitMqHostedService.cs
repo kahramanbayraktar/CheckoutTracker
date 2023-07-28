@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Customer.Web.EventBus
 {
@@ -23,9 +24,9 @@ namespace Customer.Web.EventBus
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _queue = config["EventBus:CustomerDataQueue"]!;
+            _queue = config["EventBus:DefaultQueue"]!;
 
-            _channel.QueueDeclare(queue: _queue, exclusive: false, autoDelete: false);
+            _channel.QueueDeclare(queue: _queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
             _consumer = new(_channel);            
         }

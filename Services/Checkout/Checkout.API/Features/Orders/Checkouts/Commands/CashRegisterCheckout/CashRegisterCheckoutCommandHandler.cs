@@ -1,21 +1,21 @@
-﻿using Checkout.API.EventBus;
+﻿using EventBus.Messages.EventBus;
 using MediatR;
 
 namespace Checkout.API.Features.Orders.Checkouts.Commands.CashRegisterCheckout
 {
     public class CashRegisterCheckoutCommandHandler : IRequestHandler<CashRegisterCheckoutCommand>
     {
-        private readonly IMessageProducer _messageProducer;
+        private readonly IEventBus _eventBus;
 
-        public CashRegisterCheckoutCommandHandler(IMessageProducer messageProducer)
+        public CashRegisterCheckoutCommandHandler(IEventBus eventBus)
         {
-            _messageProducer = messageProducer;
+            _eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(CashRegisterCheckoutCommand request, CancellationToken cancellationToken)
         {
             // TODO: Usually a map is required here
-            _messageProducer.Publish(request);
+            _eventBus.Publish(request);
 
             return Unit.Value;
         }

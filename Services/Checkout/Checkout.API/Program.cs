@@ -1,4 +1,4 @@
-using Checkout.API.EventBus;
+using EventBus.Messages.EventBus;
 using MediatR;
 using System.Reflection;
 
@@ -16,7 +16,7 @@ namespace Checkout.API
 
             builder.Services.AddControllers();
 
-            builder.Services.AddSingleton<IMessageProducer, RabbitMqMessageProducer>();
+            builder.Services.AddSingleton<IEventBus, RabbitMqEventBus>();
 
             var app = builder.Build();
 

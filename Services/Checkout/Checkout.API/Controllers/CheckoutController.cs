@@ -1,5 +1,4 @@
-﻿using Checkout.API.EventBus;
-using Checkout.API.Features.Orders.Checkouts.Commands.CashRegisterCheckout;
+﻿using Checkout.API.Features.Orders.Checkouts.Commands.CashRegisterCheckout;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +9,10 @@ namespace Checkout.API.Controllers
     public class CheckoutController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMessageProducer _messageProducer;
 
-        public CheckoutController(IMediator mediator, IMessageProducer messageProducer)
+        public CheckoutController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _messageProducer = messageProducer ?? throw new ArgumentNullException(nameof(messageProducer));
         }
 
         [ProducesResponseType(StatusCodes.Status202Accepted)]
