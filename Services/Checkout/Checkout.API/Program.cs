@@ -1,5 +1,6 @@
-using EventBus.Implementations;
+using Checkout.API.Extensions;
 using EventBus.Contracts;
+using EventBus.Implementations;
 using MediatR;
 using System.Reflection;
 
@@ -23,7 +24,11 @@ namespace Checkout.API
 
             var app = builder.Build();
 
+            var logger = app.Services.GetService<ILoggerFactory>()!.CreateLogger<Program>();
+
             // Configure the HTTP request pipeline.
+
+            app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
 
