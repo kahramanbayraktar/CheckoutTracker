@@ -13,9 +13,9 @@ namespace Customer.Web.Controllers
 
         public HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment, IConfiguration config)
         {
-            _logger = logger;
-            _environment = environment;
-            _config = config;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            _config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
         public IActionResult Index()
@@ -23,7 +23,11 @@ namespace Customer.Web.Controllers
             var path = Path.Combine(_environment.WebRootPath, _config["Data:FilePath"]!);
             var content = System.IO.File.ReadAllLines(path);
 
+            _logger.LogInformation("Customers have been read.");
+
             var model = CustomerCsvParser.Parse(content);
+
+            _logger.LogInformation("Displaying customers.");
 
             return View(model);
         }
