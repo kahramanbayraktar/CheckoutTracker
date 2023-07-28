@@ -11,8 +11,6 @@ namespace EventBus.Messages.EventBus
         private readonly string _uri;
         private string _queueName = null!;
 
-        //public string QueueName { get; set; } = null!;
-
         public RabbitMqEventBus(IConfiguration config)
         {
             _uri = config["EventBus:Uri"]!;

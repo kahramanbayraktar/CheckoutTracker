@@ -1,4 +1,5 @@
-using Customer.Web.EventBus;
+using Customer.Web.Services;
+using EventBus.Messages.EventBus;
 
 namespace Customer.Web
 {
@@ -11,6 +12,7 @@ namespace Customer.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddTransient<IEventBus, RabbitMqEventBus>();
             builder.Services.AddHostedService<RabbitMqHostedService>();
 
             var app = builder.Build();
