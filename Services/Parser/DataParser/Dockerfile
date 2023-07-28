@@ -6,6 +6,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Parser/DataParser/DataParser.csproj", "Services/Parser/DataParser/"]
+COPY ["BuildingBlocks/EventBus/EventBus.csproj", "BuildingBlocks/EventBus/"]
 RUN dotnet restore "Services/Parser/DataParser/DataParser.csproj"
 COPY . .
 WORKDIR "/src/Services/Parser/DataParser"

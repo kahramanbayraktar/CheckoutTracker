@@ -1,4 +1,4 @@
-﻿using EventBus.Messages.EventBus;
+﻿using EventBus.Contracts;
 using MediatR;
 
 namespace Checkout.API.Features.Orders.Checkouts.Commands.CashRegisterCheckout

@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using EventBus.Contracts;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
 
-namespace EventBus.Messages.EventBus
+namespace EventBus.Implementations
 {
     public class RabbitMqEventBus : IEventBus
     {
@@ -18,7 +19,7 @@ namespace EventBus.Messages.EventBus
         }
 
         public void SetQueueName(string queueName)
-        { 
+        {
             _queueName = queueName;
         }
 

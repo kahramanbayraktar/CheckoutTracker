@@ -1,4 +1,5 @@
-using EventBus.Messages.EventBus;
+using EventBus.Implementations;
+using EventBus.Contracts;
 using MediatR;
 using System.Reflection;
 

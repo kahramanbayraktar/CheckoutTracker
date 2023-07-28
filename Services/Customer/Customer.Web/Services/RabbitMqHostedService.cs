@@ -1,5 +1,5 @@
 ﻿using Customer.Utils.Utils;
-using EventBus.Messages.EventBus;
+using EventBus.Contracts;
 
 namespace Customer.Web.Services
 {

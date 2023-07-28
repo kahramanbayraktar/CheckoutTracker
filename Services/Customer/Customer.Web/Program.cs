@@ -1,5 +1,6 @@
 using Customer.Web.Services;
-using EventBus.Messages.EventBus;
+using EventBus.Implementations;
+using EventBus.Contracts;
 
 namespace Customer.Web
 {

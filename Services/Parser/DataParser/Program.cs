@@ -1,5 +1,5 @@
 ﻿using DataParser.Parser;
-using EventBus.Messages.EventBus;
+using EventBus.Implementations;
 using EventBus.Messages.Events;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

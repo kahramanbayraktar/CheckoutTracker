@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Customer/Customer.Web/Customer.Web.csproj", "Services/Customer/Customer.Web/"]
+COPY ["BuildingBlocks/EventBus/EventBus.csproj", "BuildingBlocks/EventBus/"]
 COPY ["Services/Customer/Customer.Domain/Customer.Domain.csproj", "Services/Customer/Customer.Domain/"]
 COPY ["Services/Customer/Customer.Utils/Customer.Utils.csproj", "Services/Customer/Customer.Utils/"]
 RUN dotnet restore "Services/Customer/Customer.Web/Customer.Web.csproj"

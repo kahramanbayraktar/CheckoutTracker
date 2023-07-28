@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Checkout/Checkout.API/Checkout.API.csproj", "Services/Checkout/Checkout.API/"]
+COPY ["BuildingBlocks/EventBus/EventBus.csproj", "BuildingBlocks/EventBus/"]
 COPY ["Services/Checkout/Checkout.Domain/Checkout.Domain.csproj", "Services/Checkout/Checkout.Domain/"]
 RUN dotnet restore "Services/Checkout/Checkout.API/Checkout.API.csproj"
 COPY . .
