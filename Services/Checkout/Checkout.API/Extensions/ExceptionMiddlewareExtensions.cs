@@ -20,7 +20,7 @@ namespace Checkout.API.Extensions
                     {
                         logger.LogError($"An error occurred: {feature.Error}");
 
-                        await context.Response.WriteAsync(new ErrorDetails()
+                        await context.Response.WriteAsync(new ErrorDetails
                         {
                             StatusCode = context.Response.StatusCode,
                             Message = "Internal Server Error"

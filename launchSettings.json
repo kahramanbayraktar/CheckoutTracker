@@ -6,7 +6,8 @@
       "serviceActions": {
         "checkout.api": "StartDebugging",
         "customer.web": "StartDebugging",
-        "dataparser": "StartDebugging"
+        "dataparser": "StartDebugging",
+        "anotherapp.web": "StartDebugging"
       }
     }
   }

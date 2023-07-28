@@ -11,15 +11,14 @@ services:
       context: .
       dockerfile: Services/Checkout/Checkout.API/Dockerfile
 
-  customer.web:
-    image: ${DOCKER_REGISTRY-}customerweb
-    build:
-      context: .
-      dockerfile: Services/Customer/Customer.Web/Dockerfile
-
   dataparser:
     image: ${DOCKER_REGISTRY-}dataparser
     build:
       context: .
       dockerfile: Services/Parser/DataParser/Dockerfile
-
+      
+  customer.web:
+    image: ${DOCKER_REGISTRY-}customerweb
+    build:
+      context: .
+      dockerfile: Services/Customer/Customer.Web/Dockerfile

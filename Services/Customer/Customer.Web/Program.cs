@@ -1,6 +1,6 @@
 using Customer.Web.Services;
-using EventBus.Implementations;
 using EventBus.Contracts;
+using EventBus.Implementations;
 
 namespace Customer.Web
 {
